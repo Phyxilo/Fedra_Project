@@ -1,0 +1,3 @@
+INPUT_RUNS_LIST		lnk.lst
+OUTPUT_DATA_DIR		./data/
+PARAMETERS_DIR		./par/
