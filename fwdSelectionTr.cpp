@@ -104,6 +104,7 @@ int main(int argc, char *argv[]){
 						cout << effSel->FindObject(secTrack) << endl;
 						*/
 					}
+					else {effSel->Add(secTrack)}
 					//srtArr[j] = trDist;
 				}
 			}
@@ -128,16 +129,9 @@ int main(int argc, char *argv[]){
 	for (int i = 0; i < slpSel->GetEntriesFast(); i++)
 	{
 		cmpTr = ObjArrCompare(slpSel, dscSel, i);
-		if (cmpTr == 0) {effSel->Add(cmpTr);}
-	}
-	cout << effSel->GetEntriesFast() << endl;
-	*/
-
-	for (int i = 0; i < slpSel->GetEntriesFast(); i++)
-	{
-		cmpTr = ObjArrCompare(slpSel, dscSel, i);
 		if (cmpTr != 0) {effSel->Add(cmpTr);}
 	}
+	*/
 	cout << effSel->GetEntriesFast() << endl;
 
 	dproc->MakeTracksTree(*slpSel, 0, 0, "Out/primaryCut.root");
