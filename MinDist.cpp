@@ -33,11 +33,15 @@ main(int argc, char *argv[])
   double sum, sig;
   double slopy1,slopy2,slopz1,slopz2;
   double chi_tr1,chi_tr2;
+  double vtx[7];
+  double Two_seg[2];
   vtx[5]=0.0;
   vtx[6]=0.0;
   vtx[3]=0.0;
   vtx[2]=0.0;
   vtx[1]=0.0;
+
+  Two_seg[0] = 16888; Two_seg[1] = 16888;
 
   int trObjArrSize = trObjArr->GetEntriesFast();
 
@@ -78,14 +82,14 @@ main(int argc, char *argv[])
 
     double vtabs  = sqrt(vt[0]*vt[0]+vt[1]*vt[1]+vt[2]*vt[2]);
 
-    if (vtabs == 0) 
+    if (vtabs == 0)
     {
       ifl = -1;
       return(-1);
     }
 
     vt[0]  = vt[0]/vtabs;
-    vt[1]  = vt[1]/vtabs; 
+    vt[1]  = vt[1]/vtabs;
     vt[2]  = vt[2]/vtabs;
 
     double vtv1   = p1[0]*vt[0]+p1[1]*vt[1]+p1[2]*vt[2];
@@ -94,29 +98,29 @@ main(int argc, char *argv[])
 
     sig  = (vtv2-vtv1)/2.;
 
-    if (v1v2 == 1) 
-    { 
+    if (v1v2 == 1)
+    {
       ifl = -1;
       return(-1);
     }
 
-    sum = 0;  
+    sum = 0;
     for(int i = 0; i < 3; i++) { sum = sum + (p2[i]-p1[i])*(v1[i]-v2[i]*v1v2);}
 
     double faca = sum/(1.-v1v2*v1v2);
-    
+
     for(int j=0;j<3;j++) { vtx[j] = p1[j] + faca*v1[j] + sig*vt[j];}
-    
-    vtx[3] = sqrt(sig*sig); 
+
+    vtx[3] = sqrt(sig*sig);
     vtx[4]= 0.0;
     vtx[5]= vtx[0]-p1[0];
     vtx[6]= vtx[0]-p2[0];
 
     if(vtx[3] < 2.0 && vtx[5] > -1580.0 && vtx[6] > -1580.0 && vtx[5] < 100.0 && vtx[6] < 100.0 && sqrt((vtx[5]-vtx[6])*(vtx[5]-vtx[6])) < 800.)
     {
-      if((chi_tr1 < 1.0 && chi_tr2 < 1.0) || (Two_seg[0] > 3 && Two_seg[1] > 3)) { vtx[4]=1.0; }
+      if((chi_tr1 < 1.0 && chi_tr2 < 1.0) || (Two_seg[0] > 3 && Two_seg[1] > 3)) { vtx[4]=1.0; cout << "vtx0: " << vtx[0] << ", vtx1: " << vtx[1] << ", vtx2: " << vtx[2] << ", vtx3: " << vtx[3] << ", vtx4: " << vtx[4] << ", vtx5: " << vtx[5] << ", vtx6: " << vtx[6] << endl;}
     }
-
+    //cout << "vtx0: " << vtx[0] << ", vtx1: " << vtx[1] << ", vtx2: " << vtx[2] << ", vtx3: " << vtx[3] << ", vtx4: " << vtx[4] << ", vtx5: " << vtx[5] << ", vtx6: " << vtx[6] << endl;
   }
 
   /*
@@ -147,7 +151,7 @@ main(int argc, char *argv[])
   /////////////////////////
   //Book Track parameters//
   /////////////////////////
-  Two_sl[0]= slopy1; 
+  Two_sl[0]= slopy1;
   Two_sl[1]= slopz1;
   Two_sl[2]= slopy2;
   Two_sl[3]= slopz2;
@@ -165,7 +169,7 @@ main(int argc, char *argv[])
     return(-1);
   }
   vt[0]  = vt[0]/vtabs;
-  vt[1]  = vt[1]/vtabs; 
+  vt[1]  = vt[1]/vtabs;
   vt[2]  = vt[2]/vtabs;
   //////////////////////////////////////////////
   //---> MINIMAL HALF DISTANCE BETWEEN TRACKS///
@@ -175,22 +179,22 @@ main(int argc, char *argv[])
   sig  = (vtv2-vtv1)/2.;
   //
   double v1v2   = v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2];
-  if (v1v2==1) { 
+  if (v1v2==1) {
     ifl = -1;
     return(-1);
   }
   //
   //start from track 1
   //
-  sum = 0; 
-  for(int i=0;i<3;i++) { 
+  sum = 0;
+  for(int i=0;i<3;i++) {
     sum = sum + (p2[i]-p1[i])*(v1[i]-v2[i]*v1v2);
   }
   double faca = sum/(1.-v1v2*v1v2);
-  for(int j=0;j<3;j++){   
+  for(int j=0;j<3;j++){
     vtx[j] = p1[j] + faca*v1[j] + sig*vt[j];
   }
-  vtx[3] = sqrt(sig*sig); 
+  vtx[3] = sqrt(sig*sig);
   vtx[4]= 0.0;
   vtx[5]= vtx[0]-p1[0];
   vtx[6]= vtx[0]-p2[0];
