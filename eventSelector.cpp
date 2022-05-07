@@ -21,8 +21,15 @@ int main(int argc, char *argv[])
 		{
 			const char *eNum = allArgs[i].c_str();
 			eventID.push_back(atoi(eNum));
-			cout << "Event ID: " << allArgs[i] << endl;
+			//cout << "Event ID: " << allArgs[i] << endl;
 		}
+
+		/*
+		if (strstr(sentence.c_str(), word.c_str()))
+		{
+			cout << "OK" << endl;
+		}
+		*/
 	}
 	else{ cout << "Insert Event ID. Usage: ./eSel $eID" << endl; return 0; }
 
@@ -39,10 +46,11 @@ int main(int argc, char *argv[])
 		for (int i = 0; i < ntrk; i++)
 		{
 			EdbTrackP *t = pvr->GetTrack(i);
-			//cout << t->MCEvt() << endl;
+			//cout << t->MCEvt() << endl; //91150
 
-			if (t->MCEvt() == eventID[j]) { eSelected->Add(t); }
+			if (t->MCEvt() == eventID[j]) {eSelected->Add(t);}
 		}
+
 	}
 	cout << "Track count of the event: " << eSelected->GetEntriesFast() << endl;
 
